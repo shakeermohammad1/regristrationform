@@ -1,0 +1,41 @@
+from tkinter import *
+from tkinter import messagebox as msg
+class Login:
+    def  register_page(self):
+        root=Tk()
+        root.title("Login")
+        root.geometry("400x400")
+        root.config(bg="violet")
+        username=Label(root,text="username:",bg="violet",fg="black",font="bold 20")
+        username.place(x=20,y=100)
+        self.U_box=Entry(root)
+        self.U_box.place(x=150,y=110)
+        password=Label(root,text="password:",bg="violet",fg="black",font="bold 20")
+        password.place(x=20,y=140)
+        self.V_box=Entry(root)
+        self.V_box.place(x=150,y=150)
+        email=Label(root,text="email id:",bg="violet",fg="black",font="bold 20")
+        email.place(x=20,y=170)
+        self.O_box=Entry(root)
+        self.O_box.place(x=140,y=180)
+        submit=Button(root,text="register",bg="yellow",fg="black",font="bold 20",command=self.register_page_add)
+        submit.place(x=160,y=220)
+        root.mainloop()
+    def  register_pagevalidation(self):
+        uname=self.U_box.get()
+        pname=self.V_box.get()
+        ename=self.O_box.get()
+    def  register_page_add(self):
+        import mysql.connector
+        mydb = mysql.connector.connect(host="localhost", port=3306, user="root", password="root", database=" register_page")
+
+        mycursor = mydb.cursor()
+        uname=self.U_box.get()
+        pname = self.V_box.get()
+        ename = self.O_box.get()
+        mycursor.execute("insert into registation values(%s,%s,%s)", (uname,pname,ename))
+        mydb.commit()
+        msg.showinfo("registation successful","added successfully")
+
+m=Login()
+m.register_page()
